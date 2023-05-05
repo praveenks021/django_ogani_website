@@ -25,12 +25,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 </head>
 
-<style>
+<!--<style>
 
 img {
   border: 2px solid #555;
 }
-</style>
+</style>-->
 
 <body>
     <!-- Page Preloder -->
@@ -531,8 +531,8 @@ img {
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>{{product.pname}}<br></h6>
-                                    <h5>${{product.price}}</h5>
+                                    <h6><a href="{% url 'fresh:description' product.id %}">{{product.pname}}</a><br></h6>
+                                    <h5>${{product.price}} </h5>
                                 </div>
                             </div>
                         </div>

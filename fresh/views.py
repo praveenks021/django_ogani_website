@@ -15,3 +15,10 @@ def shop(request):
 def category(request, id):
     products = Product.objects.filter(category__id=id)
     return render(request, "shop-grid.html", {"products": products})
+
+
+def descriptions(request, id):
+    product_description = Product.objects.filter(id=id)
+    return render(request, "shop-details.html", {"product_description": product_description})
+
+

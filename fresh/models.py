@@ -13,6 +13,7 @@ class Product(models.Model):
     price = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='media/', null=True)
+    description = models.CharField(max_length=500, null=True)
 
     def __str__(self):
         return self.pname
@@ -21,3 +22,5 @@ class Product(models.Model):
 class Saleoff(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     offerprice = models.IntegerField()
+
+
