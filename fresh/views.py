@@ -22,3 +22,9 @@ def descriptions(request, id):
     return render(request, "shop-details.html", {"product_description": product_description})
 
 
+def blog(request):
+    return render(request, "blog.html")
+
+
+def contact(request):
+    return render(request, "contact.html")

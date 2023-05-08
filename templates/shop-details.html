@@ -179,7 +179,7 @@
                             <i class="fa fa-bars"></i>
                             <span>All departments</span>
                         </div>
-                        <ul>
+                        <ul>`
                             <li><a href="#">Fresh Meat</a></li>
                             <li><a href="#">Vegetables</a></li>
                             <li><a href="#">Fruit & Nut Gifts</a></li>
@@ -198,10 +198,6 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
                                 <input type="text" placeholder="What do yo u need?">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
@@ -223,7 +219,7 @@
     <!-- Hero Section End -->
 
     <!-- Product Details Section Begin -->
-    <center>
+
     <section class="product-details spad">
 
         <div class="container">
@@ -250,7 +246,7 @@
                             <span>(18 reviews)</span>
                         </div>
                         <div class="product__details__price">${{product.price}}</div>
-                        <p>${{product.description}}</p>
+                        <p>{{product.description}}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -282,7 +278,6 @@
         </div>
 
     </section>
-        </center>
     <!-- Product Details Section End -->
 
 
