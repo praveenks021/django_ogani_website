@@ -524,7 +524,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>{{item.pname}}<br></h6>
+                                    <h6><a href="{% url 'fresh:description' item.id %}">{{item.pname}}</a><br></h6>
                                     <h5>${{item.price}}</h5>
                                 </div>
                             </div>

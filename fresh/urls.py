@@ -11,6 +11,11 @@ urlpatterns = [
     path('descriptions/<int:id>/', views.descriptions, name="description"),
     path("blog", views.blog, name="blog"),
     path("contact", views.contact, name="contact"),
+    path("cart_objects/<str:pname>", views.cart_objects, name="cart_objects"),
+    path('login/', views.LoginPage, name='login'),
+    path('logout/', views.LogoutPage, name='logout'),
+    path('signup/', views.SignupPage, name='signup'),
+    path('cart_items', views.viewcart, name='cart_items'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 
