@@ -131,7 +131,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                        <a href="/"><img src="{% static 'img/logo.png' %}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -242,7 +242,7 @@
 
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
-        {% for item in cart_items %}
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -257,15 +257,15 @@
                                     <th></th>
                                 </tr>
                             </thead>
+                            {% for item in cart_items %}
                             <tbody>
                                 <tr>
-
                                     <td class="shoping__cart__item">
-                                        <img src="{{item.image.url}}">
-                                        <h5>{{item.pname}}</h5>
+                                        <img src="{{item.products.image.url}}">
+                                        <h5>{{item.products.pname}}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        ${{item.price}}
+                                        ${{item.products.price}}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
@@ -273,15 +273,15 @@
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        ${{item.price}}
+                                        ${{ total }}
                                     </td>
                                     <td class="shoping__cart__item__close">
                                         <span class="icon_close"></span>
                                     </td>
 
                                 </tr>
-
                             </tbody>
+                            {% endfor %}
                         </table>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                         <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                             Upadate Cart</a>
                     </div>
@@ -298,14 +298,14 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Total <span>${{item.price}}</span></li>
+                            <li>Total <span>${{ grand_total }}</span></li>
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
+
     </section>
     <!-- Shoping Cart Section End -->
 
@@ -316,7 +316,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                            <a href="/"><img src="{% static 'img/logo.png' %}" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>

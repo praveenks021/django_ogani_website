@@ -3,6 +3,8 @@ from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+
 
 
 def index(request):
@@ -71,7 +73,7 @@ def LogoutPage(request):
 
 
 def cart_objects(request, pname):
-    cart_items = Product.objects.all()
+    cart_items = get_object_or_404(Product, pname=pname)
     #return render(request, "shoping-cart.html", {"cart_items": cart_items})
     username = request.user
     cart = Cart.objects.create(user=username, products=cart_items, quantity=1)
@@ -80,8 +82,13 @@ def cart_objects(request, pname):
 
 
 def viewcart(request):
+    total = 0
+    grand_total = 0
     cart_items = Cart.objects.filter(user=request.user)
-    context = {'cart_items': cart_items}
+    for i in cart_items:
+        total = i.quantity * i.products.price
+        grand_total = grand_total+total
+    context = {'cart_items': cart_items, 'total': total, 'grand_total': grand_total}
     return render(request, "shoping-cart.html", context)
 
 
