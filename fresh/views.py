@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 
 
@@ -69,16 +70,15 @@ def LoginPage(request):
 
 def LogoutPage(request):
     logout(request)
-    return redirect('/login')
+    return redirect('/')
 
 
 def cart_objects(request, pname):
     cart_items = get_object_or_404(Product, pname=pname)
-    #return render(request, "shoping-cart.html", {"cart_items": cart_items})
     username = request.user
     cart = Cart.objects.create(user=username, products=cart_items, quantity=1)
     cart.save()
-    return redirect("/")
+    return redirect("/cart_items")
 
 
 def viewcart(request):
@@ -90,6 +90,33 @@ def viewcart(request):
         grand_total = grand_total+total
     context = {'cart_items': cart_items, 'total': total, 'grand_total': grand_total}
     return render(request, "shoping-cart.html", context)
+
+
+def del_cart_item(request, id):
+    product = Cart.objects.get(id=id)
+    product.delete()
+    return redirect("/cart_items")
+
+
+def wishlist_objects(request, pname):
+    wishlist_items = get_object_or_404(Product, pname=pname)
+    username = request.user
+    wishlist = Wishlist.objects.create(user=username, products=wishlist_items)
+    wishlist.save()
+    return redirect("/wishlist")
+
+
+def wishlist(request):
+    wishlist_items = Wishlist.objects.filter(user=request.user)
+    context = {'wishlist_items': wishlist_items}
+    return render(request, "wishlist.html", context)
+
+
+def del_wishlist_item(request, id):
+    product = Wishlist.objects.get(id=id)
+    product.delete()
+    return redirect("/wishlist")
+
 
 
 
