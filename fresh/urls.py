@@ -11,15 +11,16 @@ urlpatterns = [
     path('descriptions/<int:id>/', views.descriptions, name="description"),
     path("blog", views.blog, name="blog"),
     path("contact", views.contact, name="contact"),
-    path("cart_objects/<str:pname>", views.cart_objects, name="cart_objects"),
     path('login/', views.LoginPage, name='login'),
     path('logout/', views.LogoutPage, name='logout'),
     path('signup/', views.SignupPage, name='signup'),
+    path("cart_objects/<str:pname>", views.cart_objects, name="cart_objects"),
     path('cart_items', views.viewcart, name='cart_items'),
     path('del_cart_item/<int:id>', views.del_cart_item, name='del_cart_item'),
     path("wishlist_objects/<str:pname>", views.wishlist_objects, name="wishlist_objects"),
     path('wishlist', views.wishlist, name='wishlist'),
     path('del_wishlist_item/<int:id>', views.del_wishlist_item, name='del_wishlist_item'),
+    path('search_product', views.search_product, name='search_product'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 

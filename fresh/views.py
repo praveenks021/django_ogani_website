@@ -2,10 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.db.models import Q
-
 
 
 def index(request):
@@ -15,7 +12,8 @@ def index(request):
 
 def shop(request):
     items = Product.objects.all()
-    return render(request, 'shop.html', {"items": items})
+    category_list = Category.objects.all()
+    return render(request, 'shop.html', {"items": items, 'category_list': category_list})
 
 
 def category(request, id):
@@ -117,6 +115,14 @@ def del_wishlist_item(request, id):
     product.delete()
     return redirect("/wishlist")
 
+
+def search_product(request):
+    if request.method == "POST":
+        query_name = request.POST.get('pname')
+        if query_name:
+            results = Product.objects.filter(pname__contains=query_name)
+            return render(request, 'searchlist.html', {"results": results})
+    return render(request, 'searchlist.html')
 
 
 
