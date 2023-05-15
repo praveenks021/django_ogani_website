@@ -51,7 +51,7 @@
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
-                    <li><a href="#">English</a></li>
+                    <li><a href="">English</a></li>
                 </ul>
             </div>
             <div class="header__top__right__auth">
@@ -118,7 +118,7 @@
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">English</a></li>
+                                    <li><a href="">English</a></li>
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
@@ -210,7 +210,6 @@
                     </div>
                     <div class="hero__item set-bg" data-setbg="{% static 'img/hero/banner.jpg' %}">
                         <div class="hero__text">
-                            <span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
                             <p>Free Pickup and Delivery Available</p>
                             {% for category in category_list %}
@@ -267,7 +266,13 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
+                        {% for category in category_list %}
+                                {% if category.id == 2 %}
+                            <a href="{% url 'fresh:category' category.id %}">
                         <img src="{% static 'img/banner/banner-2.jpg' %}" alt="">
+                            </a>
+                                {% endif %}
+                            {% endfor %}
                     </div>
                 </div>
             </div>

@@ -17,8 +17,9 @@ def shop(request):
 
 
 def category(request, id):
+    category_list = Category.objects.all()
     products = Product.objects.filter(category__id=id)
-    return render(request, "shop-grid.html", {"products": products})
+    return render(request, "shop-grid.html", {"products": products, 'category_list': category_list})
 
 
 def descriptions(request, id):
@@ -80,13 +81,11 @@ def cart_objects(request, pname):
 
 
 def viewcart(request):
-    total = 0
     grand_total = 0
     cart_items = Cart.objects.filter(user=request.user)
     for i in cart_items:
-        total = i.quantity * i.products.price
-        grand_total = grand_total+total
-    context = {'cart_items': cart_items, 'total': total, 'grand_total': grand_total}
+        grand_total = grand_total+i.get_total()
+        context = {'cart_items': cart_items, 'grand_total': grand_total}
     return render(request, "shoping-cart.html", context)
 
 
@@ -117,12 +116,42 @@ def del_wishlist_item(request, id):
 
 
 def search_product(request):
+    category_list = Category.objects.all()
     if request.method == "POST":
         query_name = request.POST.get('pname')
         if query_name:
             results = Product.objects.filter(pname__contains=query_name)
-            return render(request, 'searchlist.html', {"results": results})
+            return render(request, 'searchlist.html', {"results": results, 'category_list': category_list})
     return render(request, 'searchlist.html')
 
 
+def checkout(request):
+    total = 0
+    grand_total = 0
+    cart_items = Cart.objects.filter(user=request.user)
+    for i in cart_items:
+        total = i.quantity * i.products.price
+        grand_total = grand_total + total
+    return render(request, "checkout.html", {'cart_items': cart_items, 'grand_total': grand_total})
 
+
+def increment(request, id):
+    if request.method == "GET":
+        print("hhshsxgjshx")
+        item = Cart.objects.get(pk=id)
+        if 0 < (item.quantity + 1):
+            item.quantity += 1
+            item.save()
+            return redirect('/cart_items')
+    return redirect('/cart_items')
+
+
+def decrement(request, id):
+    if request.method == "GET":
+        print('ffdsghs')
+        item = Cart.objects.get(pk=id)
+        if 0 < (item.quantity - 1):
+            item.quantity -= 1
+            item.save()
+            return redirect('/cart_items')
+    return redirect('/cart_items')

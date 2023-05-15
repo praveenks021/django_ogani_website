@@ -207,6 +207,14 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Shoping Cart Section Begin -->
+    <style>
+    img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 75px;
+    }
+</style>
     <section class="shoping-cart spad">
 
         <div class="container">
@@ -216,26 +224,32 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="shoping__product">Products</th>
+                                    <th>Products</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             {% for item in cart_items %}
                             <tbody>
                                 <tr>
-                                    <td class="shoping__cart__item">
+                                    <td>
                                         <img src="{{item.products.image.url}}">
-                                        <h5><a href="{% url 'fresh:description' item.products.id %}">{{item.products.pname}}</a></h5>
+                                        <h5><a href="{% url 'fresh:description' item.products.id % }">{{item.products.pname}}</a></h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${{item.products.price}}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
-                                            {{item.quantity}}
+                                            <a href="{% url 'fresh:decrement' item.pk %}">-</a>
+                                            <h5>{{ item.quantity }}</h5>
+                                            <a href="{% url 'fresh:increment' item.pk %}">+</a>
                                         </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        ${{item.get_total}}
                                     </td>
                                     <td class="shoping__cart__item__close">
                                         <a href="del_cart_item/{{item.id}}"><i class="fa fa-remove"></i></a>
@@ -261,7 +275,7 @@
                         <ul>
                             <li>Grand Total <span>${{ grand_total }}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>

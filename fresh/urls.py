@@ -21,6 +21,11 @@ urlpatterns = [
     path('wishlist', views.wishlist, name='wishlist'),
     path('del_wishlist_item/<int:id>', views.del_wishlist_item, name='del_wishlist_item'),
     path('search_product', views.search_product, name='search_product'),
+    path("checkout", views.checkout, name="checkout"),
+    path("increment/<int:id>/", views.increment, name="increment"),
+    path("decrement/<int:id>/", views.decrement, name="decrement"),
+
+
 ]
 urlpatterns += staticfiles_urlpatterns()
 

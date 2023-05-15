@@ -37,6 +37,10 @@ class Cart(models.Model):
     def __str__(self):
         return self.products.pname
 
+    def get_total(self):
+        total = self.products.price * self.quantity
+        return total
+
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
