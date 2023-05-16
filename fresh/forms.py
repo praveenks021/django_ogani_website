@@ -15,3 +15,10 @@ class CartForm(forms.ModelForm):
         model = Cart
         fields = "__all__"
         widgets = {}
+
+
+class CheckoutForm(forms.ModelForm):
+    class Meta:
+        model = Checkout
+        fields = "__all__"
+        widgets = {}

@@ -156,6 +156,22 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
+<style>
+a:link {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: hotpink;
+}
+a:active {
+  color: blue;
+}
+</style>
     <section class="hero hero-normal">
         <div class="container">
             <div class="row">
@@ -236,16 +252,20 @@
                                 <tr>
                                     <td>
                                         <img src="{{item.products.image.url}}">
-                                        <h5><a href="{% url 'fresh:description' item.products.id % }">{{item.products.pname}}</a></h5>
+                                        <h5><a href="{% url 'fresh:description' item.products.id %}">{{item.products.pname}}</a></h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${{item.products.price}}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
-                                            <a href="{% url 'fresh:decrement' item.pk %}">-</a>
-                                            <h5>{{ item.quantity }}</h5>
-                                            <a href="{% url 'fresh:increment' item.pk %}">+</a>
+                                            <table>
+                                            <tr>
+                                           <td> <a href="{% url 'fresh:decrement' item.pk %}">-</a></td>
+                                            <td><h5>{{ item.quantity }}</h5></td>
+                                            <td><a href="{% url 'fresh:increment' item.pk %}">+</a></td>
+                                            </tr>
+                                            </table>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
@@ -265,8 +285,8 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                        <a href="/cart_items" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                            Update Cart</a>
                     </div>
                 </div>
                 <div class="col-lg-6">

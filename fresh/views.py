@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import *
+from .forms import CheckoutForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404
@@ -125,19 +126,8 @@ def search_product(request):
     return render(request, 'searchlist.html')
 
 
-def checkout(request):
-    total = 0
-    grand_total = 0
-    cart_items = Cart.objects.filter(user=request.user)
-    for i in cart_items:
-        total = i.quantity * i.products.price
-        grand_total = grand_total + total
-    return render(request, "checkout.html", {'cart_items': cart_items, 'grand_total': grand_total})
-
-
 def increment(request, id):
     if request.method == "GET":
-        print("hhshsxgjshx")
         item = Cart.objects.get(pk=id)
         if 0 < (item.quantity + 1):
             item.quantity += 1
@@ -148,10 +138,27 @@ def increment(request, id):
 
 def decrement(request, id):
     if request.method == "GET":
-        print('ffdsghs')
         item = Cart.objects.get(pk=id)
         if 0 < (item.quantity - 1):
             item.quantity -= 1
             item.save()
             return redirect('/cart_items')
     return redirect('/cart_items')
+
+
+def checkout(request):
+    total = 0
+    grand_total = 0
+    cart_items = Cart.objects.filter(user=request.user)
+    for i in cart_items:
+        total = i.quantity * i.products.price
+        grand_total = grand_total + total
+
+    if request.method == "POST":
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    else:
+        form = CheckoutForm()
+    return render(request, 'checkout.html', {'cart_items': cart_items, 'grand_total': grand_total})

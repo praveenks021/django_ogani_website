@@ -50,3 +50,17 @@ class Wishlist(models.Model):
     def __str__(self):
         return self.products.pname
 
+
+class Checkout(models.Model):
+    f_name = models.CharField(max_length=100)
+    l_name = models.CharField(max_length=100)
+    country = models.CharField(max_length=50, null=True)
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=50, null=True)
+    pincode = models.IntegerField()
+    phone = models.IntegerField()
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.f_name
