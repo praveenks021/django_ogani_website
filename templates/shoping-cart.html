@@ -44,7 +44,6 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
-                <img src="{% static 'img/language.png' %}" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -104,7 +103,6 @@
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
-                                <img src="{% static 'img/language.png' %}" alt="">
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
@@ -224,13 +222,13 @@ a:active {
 
     <!-- Shoping Cart Section Begin -->
     <style>
-    img {
+    img.prod {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 75px;
     }
-</style>
+    </style>
     <section class="shoping-cart spad">
 
         <div class="container">
@@ -240,7 +238,7 @@ a:active {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Products</th>
+                                    <th class="shoping__product">Products</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -250,8 +248,8 @@ a:active {
                             {% for item in cart_items %}
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <img src="{{item.products.image.url}}">
+                                    <td  class="shoping__cart__item">
+                                        <img src="{{item.products.image.url}}" class="prod">
                                         <h5><a href="{% url 'fresh:description' item.products.id %}">{{item.products.pname}}</a></h5>
                                     </td>
                                     <td class="shoping__cart__price">
@@ -261,7 +259,7 @@ a:active {
                                         <div class="quantity">
                                             <table>
                                             <tr>
-                                           <td> <a href="{% url 'fresh:decrement' item.pk %}">-</a></td>
+                                            <td> <a href="{% url 'fresh:decrement' item.pk %}">-</a></td>
                                             <td><h5>{{ item.quantity }}</h5></td>
                                             <td><a href="{% url 'fresh:increment' item.pk %}">+</a></td>
                                             </tr>
@@ -287,6 +285,12 @@ a:active {
                         <a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                         <a href="/cart_items" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                             Update Cart</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping__continue">
+                        <div class="shoping__discount">
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">

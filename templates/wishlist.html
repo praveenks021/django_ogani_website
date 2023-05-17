@@ -207,6 +207,29 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Wishlist Section Begin -->
+<style>
+a:link {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: hotpink;
+}
+a:active {
+  color: blue;
+}
+
+img.prod {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 75px;
+    }
+</style>
     <section class="shoping-cart spad">
 
         <div class="container">
@@ -225,8 +248,8 @@
                             <tbody>
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="{{item.products.image.url}}">
-                                        <h5>{{item.products.pname}}</h5>
+                                        <img src="{{item.products.image.url}}" class="prod">
+                                        <h5><a href="{% url 'fresh:description' item.products.id %}">{{item.products.pname}}</a></h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${{item.products.price}}

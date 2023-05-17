@@ -23,11 +23,6 @@ class Product(models.Model):
         return self.pname
 
 
-class Saleoff(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    offerprice = models.IntegerField()
-
-
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     products = models.ForeignKey(Product, on_delete=models.CASCADE)

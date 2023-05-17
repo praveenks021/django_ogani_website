@@ -42,9 +42,8 @@ def SignupPage(request):
         email = request.POST.get('email')
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
-
         if pass1 != pass2:
-            return HttpResponse("Your password and confrom password are not Same!!")
+            return HttpResponse("Your password and conform password are not Same!!")
         else:
 
             my_user = User.objects.create_user(uname, email, pass1)
@@ -153,7 +152,6 @@ def checkout(request):
     for i in cart_items:
         total = i.quantity * i.products.price
         grand_total = grand_total + total
-
     if request.method == "POST":
         form = CheckoutForm(request.POST)
         if form.is_valid():
