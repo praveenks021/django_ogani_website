@@ -4,6 +4,7 @@ from .forms import CheckoutForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404
+from django.db.models import Max, Min
 
 
 def index(request):
@@ -12,9 +13,19 @@ def index(request):
 
 
 def shop(request):
-    items = Product.objects.all()
+    min_price = Product.objects.all().aggregate(Min('price'))
+    max_price = Product.objects.all().aggregate(Max('price'))
+    print(min_price)
+    print(max_price)
+    FilterPrice = request.GET.get('FilterPrice')
+    if FilterPrice:
+        Int_FilterPrice = int(FilterPrice)
+        items = Product.objects.filter(price__lte=Int_FilterPrice)
+    else:
+        items = Product.objects.all()
     category_list = Category.objects.all()
-    return render(request, 'shop.html', {"items": items, 'category_list': category_list})
+    return render(request, 'shop.html', {"items": items, 'category_list': category_list,
+                                         'min_price': min_price, 'max_price': max_price})
 
 
 def category(request, id):
@@ -105,7 +116,8 @@ def wishlist_objects(request, pname):
 
 def wishlist(request):
     wishlist_items = Wishlist.objects.filter(user=request.user)
-    context = {'wishlist_items': wishlist_items}
+    category_list = Category.objects.all()
+    context = {'wishlist_items': wishlist_items, 'category_list': category_list}
     return render(request, "wishlist.html", context)
 
 
@@ -160,3 +172,15 @@ def checkout(request):
     else:
         form = CheckoutForm()
     return render(request, 'checkout.html', {'cart_items': cart_items, 'grand_total': grand_total})
+
+
+def sort_name(request):
+    items = Product.objects.all().order_by('pname')
+    category_list = Category.objects.all()
+    return render(request, 'shop.html', {"items": items, 'category_list': category_list})
+
+
+def sort_price(request):
+    items = Product.objects.all().order_by('price')
+    category_list = Category.objects.all()
+    return render(request, 'shop.html', {"items": items, 'category_list': category_list})
