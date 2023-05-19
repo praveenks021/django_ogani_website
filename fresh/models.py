@@ -18,6 +18,7 @@ class Product(models.Model):
     description = models.CharField(max_length=500, null=True)
     availability = models.CharField(max_length=100, null=True)
     quantity = models.CharField(max_length=10, null=True)
+    created_at = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.pname

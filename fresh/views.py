@@ -15,8 +15,6 @@ def index(request):
 def shop(request):
     min_price = Product.objects.all().aggregate(Min('price'))
     max_price = Product.objects.all().aggregate(Max('price'))
-    print(min_price)
-    print(max_price)
     FilterPrice = request.GET.get('FilterPrice')
     if FilterPrice:
         Int_FilterPrice = int(FilterPrice)
@@ -24,8 +22,10 @@ def shop(request):
     else:
         items = Product.objects.all()
     category_list = Category.objects.all()
+    latest_product = Product.objects.order_by('-id')[0:4]
     return render(request, 'shop.html', {"items": items, 'category_list': category_list,
-                                         'min_price': min_price, 'max_price': max_price})
+                                         'min_price': min_price, 'max_price': max_price,
+                                         'latest_product': latest_product})
 
 
 def category(request, id):
