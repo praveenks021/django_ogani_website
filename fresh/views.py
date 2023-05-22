@@ -31,7 +31,9 @@ def shop(request):
 def category(request, id):
     category_list = Category.objects.all()
     products = Product.objects.filter(category__id=id)
-    return render(request, "shop-grid.html", {"products": products, 'category_list': category_list})
+    latest_product = Product.objects.order_by('-id')[0:4]
+    return render(request, "shop-grid.html", {"products": products, 'category_list': category_list,
+                                              'latest_product': latest_product})
 
 
 def descriptions(request, id):
