@@ -98,7 +98,9 @@ def viewcart(request):
     cart_items = Cart.objects.filter(user=request.user)
     for i in cart_items:
         grand_total = grand_total+i.get_total()
-        context = {'cart_items': cart_items, 'grand_total': grand_total}
+    if grand_total < 99:
+        grand_total = grand_total+5
+    context = {'cart_items': cart_items, 'grand_total': grand_total}
     return render(request, "shoping-cart.html", context)
 
 
@@ -166,6 +168,8 @@ def checkout(request):
     for i in cart_items:
         total = i.quantity * i.products.price
         grand_total = grand_total + total
+    if grand_total < 99:
+        grand_total = grand_total+5
     if request.method == "POST":
         form = CheckoutForm(request.POST)
         if form.is_valid():

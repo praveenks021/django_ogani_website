@@ -276,8 +276,11 @@
                                 <div class="checkout__order__products">Products <span>Total</span></div>
                                 <ul>
                                     {% for item in cart_items %}
-                                    <li>{{item.products.pname}}<span>${{item.get_total}}</span></li>
+                                        <li>{{item.products.pname}}<span>${{item.get_total}}</span></li>
                                     {% endfor %}
+                                    {% if grand_total < 99 %}
+                                        <li><b>Shipping</b><span>$5</span></li>
+                                    {% endif %}
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>${{ grand_total }}</span></div>
                                 <div class="checkout__order__total">Total <span>${{ grand_total }}</span></div>
@@ -384,7 +387,7 @@
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
 
- 
+
 
 </body>
 
