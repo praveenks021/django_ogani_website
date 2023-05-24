@@ -9,7 +9,13 @@ from django.db.models import Max, Min
 
 def index(request):
     category_list = Category.objects.all()
-    return render(request, 'index.html', {"category_list": category_list})
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
+    featured = Featured.objects.all()
+    return render(request, 'index.html', {"category_list": category_list,
+                                          'wishlist_quantity': wishlist_quantity,
+                                          'cart_quantity': cart_quantity,
+                                          'featured': featured})
 
 
 def shop(request):
@@ -23,22 +29,39 @@ def shop(request):
         items = Product.objects.all()
     category_list = Category.objects.all()
     latest_product = Product.objects.order_by('-id')[0:4]
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
     return render(request, 'shop.html', {"items": items, 'category_list': category_list,
                                          'min_price': min_price, 'max_price': max_price,
-                                         'latest_product': latest_product})
+                                         'latest_product': latest_product,
+                                         'wishlist_quantity': wishlist_quantity,
+                                         'cart_quantity': cart_quantity})
 
 
 def category(request, id):
     category_list = Category.objects.all()
     products = Product.objects.filter(category__id=id)
     latest_product = Product.objects.order_by('-id')[0:4]
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
     return render(request, "shop-grid.html", {"products": products, 'category_list': category_list,
-                                              'latest_product': latest_product})
+                                              'latest_product': latest_product,
+                                              'wishlist_quantity': wishlist_quantity,
+                                              'cart_quantity': cart_quantity
+                                              })
 
 
 def descriptions(request, id):
-    product_description = Product.objects.filter(id=id)
-    return render(request, "shop-details.html", {"product_description": product_description})
+    is_in_cart = False
+    product_description = Product.objects.get(id=id)
+    cart = Cart.objects.filter(products=product_description)
+    if len(cart) > 0:
+        is_in_cart = True
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
+    return render(request, "shop-details.html", {"product_description": product_description,
+                                                 'wishlist_quantity': wishlist_quantity,
+                                                 'cart_quantity': cart_quantity, 'is_in_cart': is_in_cart})
 
 
 def blog(request):
@@ -96,11 +119,14 @@ def cart_objects(request, pname):
 def viewcart(request):
     grand_total = 0
     cart_items = Cart.objects.filter(user=request.user)
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
     for i in cart_items:
         grand_total = grand_total+i.get_total()
     if grand_total < 99:
         grand_total = grand_total+5
-    context = {'cart_items': cart_items, 'grand_total': grand_total}
+    context = {'cart_items': cart_items, 'grand_total': grand_total, 'wishlist_quantity': wishlist_quantity,
+               'cart_quantity': cart_quantity}
     return render(request, "shoping-cart.html", context)
 
 
@@ -121,7 +147,10 @@ def wishlist_objects(request, pname):
 def wishlist(request):
     wishlist_items = Wishlist.objects.filter(user=request.user)
     category_list = Category.objects.all()
-    context = {'wishlist_items': wishlist_items, 'category_list': category_list}
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
+    context = {'wishlist_items': wishlist_items, 'category_list': category_list,
+               'wishlist_quantity': wishlist_quantity, 'cart_quantity': cart_quantity}
     return render(request, "wishlist.html", context)
 
 
@@ -133,11 +162,15 @@ def del_wishlist_item(request, id):
 
 def search_product(request):
     category_list = Category.objects.all()
+    wishlist_quantity = Wishlist.objects.all().count()
+    cart_quantity = Cart.objects.all().count()
     if request.method == "POST":
         query_name = request.POST.get('pname')
         if query_name:
             results = Product.objects.filter(pname__contains=query_name)
-            return render(request, 'searchlist.html', {"results": results, 'category_list': category_list})
+            return render(request, 'searchlist.html', {"results": results, 'category_list': category_list,
+                                                       'wishlist_quantity': wishlist_quantity,
+                                                       'cart_quantity': cart_quantity})
     return render(request, 'searchlist.html')
 
 

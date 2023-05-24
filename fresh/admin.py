@@ -7,5 +7,5 @@ admin.site.register(Product)
 admin.site.register(Cart)
 admin.site.register(Wishlist)
 admin.site.register(Checkout)
-
+admin.site.register(Featured)
 

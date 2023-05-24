@@ -60,3 +60,12 @@ class Checkout(models.Model):
 
     def __str__(self):
         return self.f_name
+
+
+class Featured(models.Model):
+    f_image = models.ImageField(upload_to='media/')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    created_at = models.DateField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.category.cname
