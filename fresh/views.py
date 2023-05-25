@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import *
-from .forms import CheckoutForm
+from .forms import CheckoutForm, ProductForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404
@@ -105,7 +105,7 @@ def LoginPage(request):
 
 def LogoutPage(request):
     logout(request)
-    return redirect('/')
+    return redirect('/login')
 
 
 def cart_objects(request, pname):
@@ -223,3 +223,19 @@ def sort_price(request):
     items = Product.objects.all().order_by('price')
     category_list = Category.objects.all()
     return render(request, 'shop.html', {"items": items, 'category_list': category_list})
+
+
+def add_product(request):
+    print("sghsgwjdwdghf")
+    if request.method == "POST":
+        print("qqqqqqqqqqqqqqqq")
+        form = ProductForm(request.POST, request.FILES)
+        print(form,"hhhhhhhhhhhhhhhhhhhhhh")
+        if form.is_valid():
+            print("mmmmmmmmmmmmmmmmm")
+            form.save()
+            print("ggggggggggggggggggggggggggggggg")
+            return redirect("/")
+    else:
+        form = ProductForm()
+    return render(request, 'addproduct.html')

@@ -26,6 +26,7 @@ urlpatterns = [
     path("decrement/<int:id>/", views.decrement, name="decrement"),
     path('sort_name', views.sort_name, name='sort_name'),
     path('sort_price', views.sort_price, name='sort_price'),
+    path("add_product", views.add_product, name="add_product"),
 
 ]
 urlpatterns += staticfiles_urlpatterns()

@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -39,8 +39,8 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                 <li><a href="/wishlist"><i class="fa fa-heart"></i></a></li>
-                <li><a href="/cart_items"><i class="fa fa-shopping-bag"></i></a></li>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
         </div>
         <div class="humberger__menu__widget">
@@ -52,18 +52,21 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
+            <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+            </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="./shop">Shop</a></li>
+                <li><a href="/shop">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="/cart_items">Shopping Cart</a></li>
+                        <li><a href="/cart_items">Shoping Cart</a></li>
                         <li><a href="/wishlist">Wishlist</a></li>
                     </ul>
                 </li>
-                <li><a href="./contact">Contact</a></li>
+                <li><a href="/contact.html">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -127,10 +130,10 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li class="active"><a href="./shop">Shop</a></li>
+                            <li class="active"><a href="/shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="/cart_items">Shoping Cart</a></li>
+                                    <li><a href="/cart_items">Shopping Cart</a></li>
                                     <li><a href="/wishlist">Wishlist</a></li>
                                 </ul>
                             </li>
@@ -141,8 +144,8 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="/wishlist"><i class="fa fa-heart"></i><span>{{wishlist_quantity}}</span></a></li>
-                            <li><a href="/cart_items"><i class="fa fa-shopping-bag"></i><span>{{cart_quantity}}</span></a></li>
+                            <li><a href="/wishlist"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="/cart_items"><i class="fa fa-shopping-bag"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -171,6 +174,15 @@
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,10 +196,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
+                        <h2>Checkout</h2>
                         <div class="breadcrumb__option">
                             <a href="/">Home</a>
-                            <span>Wishlist</span>
+                            <span>Checkout</span>
                         </div>
                     </div>
                 </div>
@@ -196,67 +208,53 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- Product Section Begin -->
-    <style>
-        i{color:green}
-    </style>
-    <section class="product spad">
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-5">
-                    <div class="sidebar">
-                        <div class="sidebar__item">
-                            <h4>Categories</h4>
-                            <ul>
-                             {% for category in category_list %}
-                             <li><a href="{% url 'fresh:category' category.id %}">{{category.cname}}</a></li>
-                             {% endfor %}
-                        </ul>
-                        </div>
-                        <div class="sidebar__item">
-                        </div>
-                        <div class="sidebar__item">
-                            <div class="latest-product__text">
-                                <div class="latest-product__slider owl-carousel">
-                                    <div class="latest-prdouct__slider__item">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="filter__item">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-5">
-                            </div>
-                        </div>
-                    </div>
+            <div class="checkout__form">
 
+<form method="POST" enctype="multipart/form-data" action="{% url 'fresh:add_product' %}">
+      {% csrf_token %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/signup"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title mb-4 text-center">Add Product</h2>
+            <form>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="pname" name="pname" placeholder="ProductName" required>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
+                <input type="text" class="form-control" id="category" name="category" placeholder="Category" required>
+                <input type="file" class="form-control" id="image" name="image" placeholder="Image" required>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
+                <input type="text" class="form-control" id="availability" name="availability" placeholder="Stock" required>
+                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required>
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Add Product</button>
+              </div>
+            </form>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
-                    <div class="row">
-                        {% for item in wishlist_items %}
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg">
-                                    <img src="{{item.products.image.url}}" class="prod">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="del_wishlist_item/{{item.id}}"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="{% url 'fresh:cart_objects' item.products.pname%}"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="{% url 'fresh:description' item.id %}">{{item.products.pname}}</a><br></h6>
-                                    <h5>${{item.products.price}}</h5>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                </div>
             </div>
         </div>
     </section>
-    <!-- Product Section End -->
+    <!-- Checkout Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -299,11 +297,10 @@
                     <div class="footer__widget">
                         <h6>Join Our Newsletter Now</h6>
                         <p>Get E-mail updates about our latest shop and special offers.</p>
-                        <form method="POST" action="{% url 'fresh:search_product' %}">
-                                {% csrf_token %}
-                                <input type="text" name="pname" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
                         <div class="footer__widget__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
