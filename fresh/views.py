@@ -226,16 +226,19 @@ def sort_price(request):
 
 
 def add_product(request):
-    print("sghsgwjdwdghf")
-    if request.method == "POST":
-        print("qqqqqqqqqqqqqqqq")
-        form = ProductForm(request.POST, request.FILES)
-        print(form,"hhhhhhhhhhhhhhhhhhhhhh")
-        if form.is_valid():
-            print("mmmmmmmmmmmmmmmmm")
-            form.save()
-            print("ggggggggggggggggggggggggggggggg")
+    if request.method == 'POST':
+            pname = request.POST['pname']
+            description = request.POST['description']
+            price = request.POST['price']
+            category = Category.objects.get(cname=request.POST['category'])
+            image = request.FILES['image']
+            availability = request.POST['availability']
+            product = Product.objects.create(pname=pname, description=description,
+                                             price=price, image=image, availability=availability,category=category)
+            product.save()
             return redirect("/")
     else:
-        form = ProductForm()
-    return render(request, 'addproduct.html')
+        category_list = Category.objects.all()
+        return render(request, "addproduct.html", {'category_list': category_list})
+
+
